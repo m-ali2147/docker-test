@@ -1,0 +1,56 @@
+version: "3"
+
+services:
+  api:
+    build:
+      dockerfile: Dockerfile
+      context: "./backend/auth"
+    environment:
+      - POSTGRES_USERNAME=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DATABASE=signupapp
+      - POSTGRES_HOST=postgresdb
+      - GUARD_PORT=4000
+    ports:
+      - "4000:4000"
+    links:
+      - postgres:postgresdb
+
+
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USERNAME=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DATABASE=signupapp
+    ports:
+      - "5432:5432"
+
+  client:
+    build:
+      dockerfile: Dockerfile
+      context: "./web"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - api
+      - client
+
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
