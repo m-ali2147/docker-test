@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minikube-adminer
+spec:
+  selector:
+    matchLabels:
+      app: minikube-adminer
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: minikube-adminer
+    spec:
+      containers:
+        - name: minikube-test-adminer-1
+          image: adminer
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          

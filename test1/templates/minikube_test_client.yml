@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minikube-client
+spec:
+  selector:
+    matchLabels:
+      app: minikube-client
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: minikube-client
+    spec:
+      containers:
+        - name: app-prod1
+          image: asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_client:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+    
+    

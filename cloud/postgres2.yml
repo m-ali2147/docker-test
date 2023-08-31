@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: minikube-postgres
+spec:
+  selector:
+    matchLabels:
+      app: minikube-postgres
+  replicas: 1
+  template:
+    metadata:
+      labels:
+
+
+        app: minikube-postgres
+    spec:
+      containers:
+        - name: minikube-test-postgres-1
+          imagePullPolicy: IfNotPresent
+          image: postgres
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USERNAME
+              value: postgres
+            - name: POSTGRES_PASSWORD
+              value: postgres
+            - name: POSTGRES_DATABASE
+              value: signupapp
+            - name: POSTGRES_HOST
+              value: postgres
+            # - name: PGDATA
+            #   value: /var/lib/postgresql/data/db-files/
+          volumeMounts:
+            - name: postgres-pv-claim
+              mountPath: "/var/lib/postgresql/data"
+              subPath: pgdata
+  volumeClaimTemplates:
+  - metadata:
+      name: postgres-pv-claim
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "standard-rwo"
+      # storageClassName: "my-storage-class"
+      resources:
+        requests:
+          storage: 2Gi
+      # volumes: 
+      #    - name: postgres-pv-claim
+      #      persistentVolumeClaim:
+      #         claimName: standard-rwo
