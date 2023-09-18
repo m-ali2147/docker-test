@@ -10,7 +10,7 @@ secrets:
     source: dronesecret  # This should match the name of the secret in Drone
 
 steps:
-  - name: build-docker-image
+  - name: build-docker-image1
     settings:
       kubeconfig:
         from_secret: kubeconfig
@@ -19,7 +19,7 @@ steps:
         - docker build -t asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_api:latest ./backend/auth
         - docker push asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_api:latest
 
-  - name: build-docker-image
+  - name: build-docker-image2
     settings:
       kubeconfig:
         from_secret: kubeconfig
@@ -28,7 +28,7 @@ steps:
         - docker build -t asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_client:latest ./web
         - docker push asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_client:latest
 
-  - name: build-docker-image
+  - name: build-docker-image3
     settings:
       kubeconfig:
         from_secret: kubeconfig
@@ -38,7 +38,7 @@ steps:
         - docker push asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/adminer:latest
 
 
-  - name: build-docker-image
+  - name: build-docker-image4
     settings:
       kubeconfig:
         from_secret: kubeconfig
