@@ -1,0 +1,62 @@
+---
+kind: pipeline
+type: kubernetes
+name: default
+
+
+# Define your secrets
+secrets:
+  - name: kubeconfig
+    source: dronesecret  # This should match the name of the secret in Drone
+
+steps:
+  - name: build-docker-image
+    settings:
+      kubeconfig:
+        from_secret: kubeconfig
+      namespace: default  # Change to your namespace
+      commands:
+        - docker build -t asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_api:latest ./backend/auth
+        - docker push asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_api:latest
+
+  - name: build-docker-image
+    settings:
+      kubeconfig:
+        from_secret: kubeconfig
+      namespace: default  # Change to your namespace
+      commands:
+        - docker build -t asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_client:latest ./web
+        - docker push asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_client:latest
+
+  - name: build-docker-image
+    settings:
+      kubeconfig:
+        from_secret: kubeconfig
+      namespace: default  # Change to your namespace
+      commands:
+        - docker build -t asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/adminer:latest .
+        - docker push asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/adminer:latest
+
+
+  - name: build-docker-image
+    settings:
+      kubeconfig:
+        from_secret: kubeconfig
+      namespace: default  # Change to your namespace
+      commands:
+        - docker build -t asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/postgres:latest .
+        - docker push asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/postgres:latest
+
+  - name: helm-deploy
+    settings:
+      kubeconfig:
+        from_secret: kubeconfig
+      namespace: default  # Change to your namespace
+      commands:
+        - helm upgrade release1 ./test1
+
+# Define the `when` conditions to control when to trigger the pipeline
+trigger:
+  event:
+    - push
+

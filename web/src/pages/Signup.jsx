@@ -59,7 +59,7 @@ class Signup extends Component {
 
 
 
-        fetch('http://34.131.242.5:4000/auth/signup', {
+        fetch('http://34.131.77.105:4000/auth/signup', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
