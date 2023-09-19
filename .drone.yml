@@ -1,10 +1,15 @@
 ---
 kind: pipeline
-type: kubernetes
+type: ssh
 name: default
 
-
 # Define your secrets
+
+
+server:
+  host: 13.51.64.196
+  user: ubuntu
+
 secrets:
   - name: kubeconfig
     source: dronesecret  # This should match the name of the secret in Drone
