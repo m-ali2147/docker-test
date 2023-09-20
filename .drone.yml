@@ -3,11 +3,10 @@ kind: pipeline
 type: ssh
 name: default
 
-# Define your secrets
 
 
 server:
-  host: 13.51.64.196
+  host: 51.20.40.210
   user: ubuntu
 
 secrets:
