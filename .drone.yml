@@ -9,11 +9,18 @@ server:
   host: 51.20.40.210
   user: ubuntu
 
-secrets:
-  - name: kubeconfig
-    source: dronesecret 
 
 steps:
+
+  - name: authenticate-gcloud
+    commands:
+      - echo $${GCLOUD_SERVICE_ACCOUNT_KEY} > /tmp/gcloud-sa.json
+      - gcloud auth activate-service-account --key-file=/tmp/gcloud-sa.json
+      - gcloud auth configure-docker
+    environment:
+      GCLOUD_SERVICE_ACCOUNT_KEY:
+        from_secret: dronesecret
+
   - name: build-docker-image1
     image: asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_api:latest
     commands:
