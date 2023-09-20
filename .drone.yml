@@ -8,6 +8,8 @@ name: default
 server:
   host: 51.20.40.210
   user: ubuntu
+  ssh_key:
+    from_secret: SSH_PRIVATE_KEY
 
 
 steps:
