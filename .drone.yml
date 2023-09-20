@@ -53,3 +53,35 @@ trigger:
     only:
       - main
 
+---
+kind: pipeline
+type: docker
+name: default
+
+
+server:
+  host: 51.20.40.210
+  user: ubuntu
+  ssh_key:
+    from_secret: SSH_PRIVATE_KEY
+
+steps:
+
+  - name: authenticate-gcloud
+    commands:
+      - echo $${GCLOUD_SERVICE_ACCOUNT_KEY} > /tmp/gcloud-sa.json
+      - gcloud auth activate-service-account --key-file=/tmp/gcloud-sa.json
+      - gcloud auth configure-docker
+    environment:
+      GCLOUD_SERVICE_ACCOUNT_KEY:
+        from_secret: dronesecret
+
+  - name: helm-release
+    commands:
+      - helm upgrade release1 ./test1
+
+
+trigger:
+  branch:
+    only:
+      - main
