@@ -52,7 +52,7 @@ trigger:
 ---
 kind: pipeline
 type: docker
-name: dockerrunner
+name: dockrunner
 
 
 server:
