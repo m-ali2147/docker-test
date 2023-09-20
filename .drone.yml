@@ -24,26 +24,22 @@ steps:
         from_secret: dronesecret
 
   - name: build-docker-image1
-    image: asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_api:latest
     commands:
      - docker build -t asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_api:latest ./backend/auth
      - docker push asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_api:latest
 
   - name: build-docker-image2
-    image: asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_client:latest
     commands:
       - docker build -t asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_client:latest ./web
       - docker push asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_client:latest
 
   - name: build-docker-image3
-    image: asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/adminer:latest
     commands:
       - docker build -t asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/adminer:latest .
       - docker push asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/adminer:latest
 
 
   - name: build-docker-image4
-    image: asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/postgres:latest
     commands:
       - docker build -t asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/postgres:latest .
       - docker push asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/postgres:latest
