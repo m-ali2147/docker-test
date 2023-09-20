@@ -56,7 +56,7 @@ trigger:
 ---
 kind: pipeline
 type: docker
-name: default
+name: default1
 
 
 server:
