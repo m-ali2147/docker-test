@@ -1,7 +1,7 @@
 ---
 kind: pipeline
 type: ssh
-name: default
+name: sshrunner
 
 
 
@@ -56,7 +56,7 @@ trigger:
 ---
 kind: pipeline
 type: docker
-name: default1
+name: dockerrunner
 
 
 server:
