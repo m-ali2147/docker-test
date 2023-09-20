@@ -1,84 +1,14 @@
 ---
 kind: pipeline
-type: ssh
-name: sshrunner
-
-
-
-server:
-  host: 51.20.40.210
-  user: ubuntu
-  ssh_key:
-    from_secret: SSH_PRIVATE_KEY
-
-
-steps:
-
-  - name: authenticate-gcloud
-    commands:
-      - echo $${GCLOUD_SERVICE_ACCOUNT_KEY} > /tmp/gcloud-sa.json
-      - gcloud auth activate-service-account --key-file=/tmp/gcloud-sa.json
-      - gcloud auth configure-docker
-    environment:
-      GCLOUD_SERVICE_ACCOUNT_KEY:
-        from_secret: dronesecret
-
-  - name: build-docker-image1
-    commands:
-     - docker build -t asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_api:latest ./backend/auth
-     - docker push asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_api:latest
-
-  - name: build-docker-image2
-    commands:
-      - docker build -t asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_client:latest ./web
-      - docker push asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_client:latest
-
-  - name: build-docker-image3
-    commands:
-      - docker build -t asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/adminer:latest .
-      - docker push asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/adminer:latest
-
-
-  - name: build-docker-image4
-    commands:
-      - docker build -t asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/postgres:latest .
-      - docker push asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/postgres:latest
-
-trigger:
-  branch:
-    only:
-      - main
-
----
-kind: pipeline
 type: docker
-name: dockrunner
-
-
-server:
-  host: 51.20.40.210
-  user: ubuntu
-  ssh_key:
-    from_secret: SSH_PRIVATE_KEY
+name: basic-test
 
 steps:
-
-  - name: authenticate-gcloud
-    commands:
-      - echo $${GCLOUD_SERVICE_ACCOUNT_KEY} > /tmp/gcloud-sa.json
-      - gcloud auth activate-service-account --key-file=/tmp/gcloud-sa.json
-      - gcloud auth configure-docker
-    environment:
-      GCLOUD_SERVICE_ACCOUNT_KEY:
-        from_secret: dronesecret
-
-  - name: helm-release
-    commands:
-      - helm upgrade release1 ./test1
-
+- name: echo-test
+  image: alpine
+  commands:
+    - echo "Hello from a basic pipeline!"
 
 trigger:
   branch:
-    only:
-      - main
-
+    - main
