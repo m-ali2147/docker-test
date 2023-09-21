@@ -81,6 +81,7 @@ steps:
         from_secret: dronesecret
 
   - name: helm-release
+    image: alpine/helm:latest  # Using Helm image
     commands:
       - helm upgrade release1 ./test1
 
