@@ -1,7 +1,7 @@
 ---
 kind: pipeline
 type: ssh
-name: ssrunner
+name: sshrunner
 
 
 
