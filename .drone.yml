@@ -6,7 +6,7 @@ name: ssrunner
 
 
 server:
-  host: 51.20.40.210
+  host: 16.170.148.144 
   user: ubuntu
   ssh_key:
     from_secret: SSH_PRIVATE_KEY
@@ -55,23 +55,23 @@ trigger:
     only:
       - main
 
----
+----
 kind: pipeline
 type: docker
 name: dockerrunner
 
-
 server:
-  host: 51.20.40.210
+  host: 16.170.148.144
   user: ubuntu
   ssh_key:
     from_secret: SSH_PRIVATE_KEY
 
 node:
   repo: docker
-steps:
 
+steps:
   - name: authenticate-gcloud
+    image: google/cloud-sdk:latest 
     commands:
       - echo $${GCLOUD_SERVICE_ACCOUNT_KEY} > /tmp/gcloud-sa.json
       - gcloud auth activate-service-account --key-file=/tmp/gcloud-sa.json
@@ -81,10 +81,9 @@ steps:
         from_secret: dronesecret
 
   - name: helm-release
-    image: alpine/helm:latest  # Using Helm image
+    image: alpine/helm:latest 
     commands:
       - helm upgrade release1 ./test1
-
 
 trigger:
   branch:
