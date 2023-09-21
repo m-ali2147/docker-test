@@ -18,7 +18,7 @@ steps:
 
   - name: authenticate-gcloud
     commands:
-      - echo $${GCLOUD_SERVICE_ACCOUNT_KEY} > /tmp/gcloud-sa.json
+      - echo -n $${GCLOUD_SERVICE_ACCOUNT_KEY} > /tmp/gcloud-sa.json
       - gcloud auth activate-service-account --key-file=/tmp/gcloud-sa.json
       - gcloud auth configure-docker
     environment:
@@ -70,12 +70,7 @@ node:
   repo: docker
 
 steps:
-  - name: authenticate-gcloud
-    image: google/cloud-sdk:latest 
-    commands:
-      - echo $${GCLOUD_SERVICE_ACCOUNT_KEY} > /tmp/gcloud-sa.json
-      - gcloud auth activate-service-account --key-file=/tmp/gcloud-sa.json
-      - gcloud auth configure-docker
+
     environment:
       GCLOUD_SERVICE_ACCOUNT_KEY:
         from_secret: dronesecret
