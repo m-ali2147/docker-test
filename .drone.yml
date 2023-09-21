@@ -1,7 +1,7 @@
 ---
 kind: pipeline
 type: ssh
-name: sshrunner
+name: ssrunner
 
 
 
@@ -11,6 +11,8 @@ server:
   ssh_key:
     from_secret: SSH_PRIVATE_KEY
 
+node:
+  repo: ssh
 
 steps:
 
@@ -65,6 +67,8 @@ server:
   ssh_key:
     from_secret: SSH_PRIVATE_KEY
 
+node:
+  repo: docker
 steps:
 
   - name: authenticate-gcloud
