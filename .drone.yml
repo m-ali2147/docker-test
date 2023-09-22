@@ -65,10 +65,6 @@ node:
 
   
 steps:
-  - name: configure gcloud
-    commands:
-      - gcloud auth activate-service-account --key-file=abc.json
-      - gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia-south2-docker.pkg.dev
 
   - name: helm-upgrade
     image: alpine/helm:latest 
