@@ -59,7 +59,11 @@ server:
   user: ubuntu
   ssh_key:
     from_secret: SSH_PRIVATE_KEY
-    
+
+node:
+  repo: docker
+
+  
 steps:
   - name: configure gcloud
     image: google/cloud-sdk:latest 
