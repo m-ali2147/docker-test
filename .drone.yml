@@ -53,7 +53,7 @@ trigger:
 ---
 kind: pipeline
 type: docker
-name: dockrunner
+name: dockerrunner
 
 
 
