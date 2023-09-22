@@ -24,6 +24,8 @@ steps:
         from_secret: service_account_json
       google_cloud_project:
         from_secret: google_cloud_project
+      registry_locations:
+        - asia-south2
 
   - name: build-docker-image1
     image: asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_api:latest
