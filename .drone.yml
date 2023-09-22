@@ -26,7 +26,6 @@ steps:
         from_secret: google_cloud_project
 
 
-
   - name: build-docker-image1
     image: asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_api:latest
     commands:
@@ -66,10 +65,24 @@ node:
   
 steps:
 
-  - name: helm-upgrade
+
+  - name: configure gcloud
+    image: docker.io/kameshsampath/drone-gcloud-auth
+    pull: if-not-exists
+    settings:
+      google_application_credentials:
+        from_secret: service_account_json
+      google_cloud_project:
+        from_secret: google_cloud_project
+    commands:
+      - gcloud auth activate-service-account --key-file=abc.json
+      - gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia-south2-docker.pkg.dev
+
+    - name: helm-upgrade
     image: alpine/helm:latest 
     commands:
       - helm upgrade release1 ./test1
+
 
 trigger:
   branch:
