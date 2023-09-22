@@ -19,12 +19,8 @@ steps:
   - name: configure gcloud
     image: docker.io/kameshsampath/drone-gcloud-auth
     pull: if-not-exists
-    settings:
-      google_application_credentials:
-        from_secret: service_account_json
-      google_cloud_project:
-        from_secret: google_cloud_project
     commands:
+      - echo "$basesecret" | base64 -d > abc.json
       - gcloud auth activate-service-account --key-file=abc.json
       - gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia-south2-docker.pkg.dev
 
