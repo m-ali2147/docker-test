@@ -43,7 +43,6 @@ steps:
       - docker push asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_client:latest
 
   - name: helm-upgrade
-    image: alpine/helm:latest 
     commands:
       - helm upgrade release1 ./test1
 
