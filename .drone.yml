@@ -6,7 +6,7 @@ name: ssrunner
 
 
 server:
-  host: 13.53.214.137
+  host: 51.20.60.85
   user: ubuntu
   ssh_key:
     from_secret: SSH_PRIVATE_KEY
