@@ -24,15 +24,15 @@ steps:
         from_secret: service_account_json
       google_cloud_project:
         from_secret: google_cloud_project
-  
+    commands:
+        - gcloud auth activate-service-account --key-file=abc.json
+        - gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia-south2-docker.pkg.dev
 
 
   - name: build-docker-image1
     image: asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_api:latest
     commands:
      - docker build -t asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_api:latest ./backend/auth
-     - gcloud auth activate-service-account --key-file=abc.json
-     - gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia-south2-docker.pkg.dev
      - docker push asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_api:latest
 
   - name: build-docker-image2
