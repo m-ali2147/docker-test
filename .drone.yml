@@ -6,7 +6,7 @@ name: ssrunner
 
 
 server:
-  host: 16.170.141.94
+  host: 13.49.18.39 
   user: ubuntu
   ssh_key:
     from_secret: SSH_PRIVATE_KEY
@@ -40,7 +40,7 @@ steps:
     commands:
       - docker build -t asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/postgres:latest .
       - docker push asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/postgres:latest
-      
+
   - name: build-docker-image1
     image: asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_api:latest
     commands:
@@ -52,7 +52,6 @@ steps:
     commands:
       - docker build -t asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_client:latest ./web
       - docker push asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_client:latest
-
 
 
 trigger:
