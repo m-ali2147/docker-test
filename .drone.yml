@@ -30,7 +30,7 @@ steps:
 
 
   - name: build-docker-image3
-    git addcommands:
+    commands:
       - docker build -t asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/adminer:latest .
       - docker push asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/adminer:latest
 
