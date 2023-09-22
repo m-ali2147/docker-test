@@ -66,11 +66,6 @@ node:
   
 steps:
   - name: configure gcloud
-    image: google/cloud-sdk:latest 
-    pull: if-not-exists
-    environment:
-      GOOGLE_APPLICATION_CREDENTIALS: 
-        from_secret: google_application_credentials
     commands:
       - gcloud auth activate-service-account --key-file=abc.json
       - gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia-south2-docker.pkg.dev
