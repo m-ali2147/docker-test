@@ -6,7 +6,7 @@ name: ssrunner
 
 
 server:
-  host: 16.170.148.144 
+  host: 13.53.214.137
   user: ubuntu
   ssh_key:
     from_secret: SSH_PRIVATE_KEY
@@ -17,7 +17,7 @@ node:
 steps:
 
   - name: authenticate-gcloud
-    c commands:
+    commands:
     - echo ${ENCODED_GCLOUD_KEY} | base64 -d > /tmp/gcloud-sa.json
     - gcloud auth activate-service-account --key-file=/tmp/gcloud-sa.json
     - gcloud auth configure-docker
@@ -61,7 +61,7 @@ type: docker
 name: dockerrunner
 
 server:
-  host: 16.170.148.144
+  host: 13.53.214.137
   user: ubuntu
   ssh_key:
     from_secret: SSH_PRIVATE_KEY
@@ -70,14 +70,14 @@ node:
   repo: docker
 
 steps:
+
   - name: authenticate-gcloud
-    image: google/cloud-sdk:latest 
     commands:
-      - echo -n $${GCLOUD_SERVICE_ACCOUNT_KEY} > /tmp/gcloud-sa.json
-      - gcloud auth activate-service-account --key-file=/tmp/gcloud-sa.json
-      - gcloud auth configure-docker
+    - echo ${ENCODED_GCLOUD_KEY} | base64 -d > /tmp/gcloud-sa.json
+    - gcloud auth activate-service-account --key-file=/tmp/gcloud-sa.json
+    - gcloud auth configure-docker
     environment:
-      GCLOUD_SERVICE_ACCOUNT_KEY:
+      ENCODED_GCLOUD_KEY:
         from_secret: dronesecret
 
   - name: helm-release
