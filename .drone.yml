@@ -29,7 +29,9 @@ steps:
   - name: build-docker-image1
     image: asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_api:latest
     commands:
-     - docker build -t asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_api:latest ./backend/auth
+     - cd backend/auth
+     - docker build -t docker-test_api:latest .
+     - docker tag docker-test_api asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_api:latest
      - gcloud auth activate-service-account --key-file=abc.json
      - gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia-south2-docker.pkg.dev
      - docker push asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_api:latest
@@ -37,7 +39,9 @@ steps:
   - name: build-docker-image2
     image: asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_client:latest
     commands:
-      - docker build -t asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_client:latest ./web
+      - cd web/
+      - docker build -t docker-test_client:latest .
+      - docker tag docker-test_client asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_client:latest
       - gcloud auth activate-service-account --key-file=abc.json
       - gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia-south2-docker.pkg.dev
       - docker push asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_client:latest
