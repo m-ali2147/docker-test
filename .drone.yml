@@ -6,7 +6,7 @@ name: ssrunner
 
 
 server:
-  host: 16.170.141.94
+  host: 13.49.18.39
   user: ubuntu
   ssh_key:
     from_secret: SSH_PRIVATE_KEY
@@ -30,7 +30,7 @@ steps:
 
 
   - name: build-docker-image3
-    commands:
+    git addcommands:
       - docker build -t asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/adminer:latest .
       - docker push asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/adminer:latest
 
