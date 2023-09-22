@@ -31,16 +31,12 @@ steps:
   - name: build-docker-image3
     image: asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/adminer:latest
     commands:
-      - gcloud auth activate-service-account --key-file=abc.json
-      - gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia-south2-docker.pkg.dev
-      - docker build -t asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/adminer:latest .
       - docker push asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/adminer:latest
 
 
   - name: build-docker-image4
     image: asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/postgres:latest
     commands:
-      - docker build -t asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/postgres:latest .
       - docker push asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/postgres:latest
 
   - name: build-docker-image1
