@@ -46,7 +46,7 @@ steps:
 
   - name: helm-upgrade
     commands:
-      - gcloud auth activate-service-account --key-file=abc.json
+      - gcloud container clusters get-credentials test-cluster --region asia-south2 --project striking-figure-396805
       - helm upgrade release1 ./test1
 
 trigger:
