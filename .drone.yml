@@ -33,7 +33,6 @@ steps:
      - docker build -t asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_api:latest ./backend/auth
      - gcloud auth activate-service-account --key-file=abc.json
      - gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia-south2-docker.pkg.dev
-
      - docker push asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_api:latest
 
   - name: build-docker-image2
@@ -55,37 +54,21 @@ kind: pipeline
 type: docker
 name: dockerrunner
 
-
-
-server:
-  host: 13.49.18.39 
-  user: ubuntu
-  ssh_key:
-    from_secret: SSH_PRIVATE_KEY
-
-node:
-  repo: docker
-
 steps:
-
   - name: configure gcloud
-    image: docker.io/kameshsampath/drone-gcloud-auth
+    image: google/cloud-sdk:latest 
     pull: if-not-exists
-    settings:
-      google_application_credentials:
-        from_secret: service_account_json
-      google_cloud_project:
-        from_secret: google_cloud_project
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: 
+        from_secret: google_application_credentials
     commands:
       - gcloud auth activate-service-account --key-file=abc.json
       - gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia-south2-docker.pkg.dev
 
-
-  - name: build-helm-upgrade
-    image: alpine/helm
+  - name: helm-upgrade
+    image: alpine/helm:latest 
     commands:
       - helm upgrade release1 ./test1
-
 
 trigger:
   branch:
