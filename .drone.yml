@@ -31,6 +31,8 @@ steps:
     image: asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_api:latest
     commands:
      - docker build -t asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_api:latest ./backend/auth
+     - gcloud auth activate-service-account service-account.json
+     - gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia-south2-docker.pkg.dev
      - docker push asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_api:latest
 
   - name: build-docker-image2
