@@ -20,6 +20,7 @@ steps:
     image: docker.io/kameshsampath/drone-gcloud-auth
     pull: if-not-exists
     commands:
+      - echo "$dsecret"
       - echo "$dsecret" > abc.json
       - gcloud auth activate-service-account --key-file=abc.json
       - gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia-south2-docker.pkg.dev
