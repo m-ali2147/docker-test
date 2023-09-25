@@ -36,7 +36,6 @@ steps:
      - docker push asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_api:latest
 
   - name: build-docker-image2
-    image: asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_client:latest
     commands:
       - cd web/
       - docker build -t docker-test_client:latest .
