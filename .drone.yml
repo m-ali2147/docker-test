@@ -19,12 +19,9 @@ steps:
   - name: configure gcloud
     image: docker.io/kameshsampath/drone-gcloud-auth
     pull: if-not-exists
-    environment:
-      GOOGLE_APPLICATION_CREDENTIALS: /workspace/dsecret.json  # Use a colon (:) to specify environment variables
     commands:
-      - mkdir -p /workspace  
-      - echo "$dsecret" > /workspace/dsecret.json
-      - gcloud auth activate-service-account --key-file=/workspace/dsecret.json
+      - echo $dsecret | base64 --decode > abc.json
+      - gcloud auth activate-service-account --key-file=abc.json
       - gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia-south2-docker.pkg.dev
 
   - name: build-docker-image1
