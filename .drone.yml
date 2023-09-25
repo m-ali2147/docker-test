@@ -6,7 +6,7 @@ name: sshrunner
 
 
 server:
-  host: 16.171.239.132
+  host: 13.49.65.147
   user: ubuntu
   ssh_key:
     from_secret: SSH_PRIVATE_KEY
@@ -20,7 +20,7 @@ steps:
     image: docker.io/kameshsampath/drone-gcloud-auth
     pull: if-not-exists
     commands:
-      - echo "$basesecret" | base64 -d > abc.json
+      - echo "$dsecret" > abc.json
       - gcloud auth activate-service-account --key-file=abc.json
       - gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia-south2-docker.pkg.dev
 
