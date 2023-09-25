@@ -19,6 +19,9 @@ steps:
   - name: configure gcloud
     image: docker.io/kameshsampath/drone-gcloud-auth
     pull: if-not-exists
+    environment:
+      dsecret:
+        from_secret: dsecret_secret  
     commands:
       - echo "$dsecret" | base64 --decode > abc.json
       - gcloud auth activate-service-account --key-file=abc.json
