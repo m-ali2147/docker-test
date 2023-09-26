@@ -6,7 +6,7 @@ name: ssrunner
 
 
 server:
-  host: 13.49.65.147
+  host: 51.20.82.133
   user: ubuntu
   ssh_key:
     from_secret: SSH_PRIVATE_KEY
@@ -30,6 +30,7 @@ steps:
   - name: build-docker-image1
     image: asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_api:latest
     commands:
+     - gcloud container clusters get-credentials test-cluster --region asia-south2 --project striking-figure-396805
      - cd backend/auth
      - docker build -t docker-test_api:latest .
      - docker tag docker-test_api asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_api:latest
@@ -38,6 +39,7 @@ steps:
   - name: build-docker-image2
     image: docker-test_client
     commands:
+      - gcloud container clusters get-credentials test-cluster --region asia-south2 --project striking-figure-396805
       - cd web/
       - docker build -t docker-test_client:latest .
       - docker tag docker-test_client asia-south2-docker.pkg.dev/striking-figure-396805/testgcpdep/docker-test_client:latest
